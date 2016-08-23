@@ -66,22 +66,28 @@
                 <div class="cssCompanyName">{{Customer.CompanyName}}</div>
                 <div class="cssCompanyCity">{{Customer.City}}</div>
                 <div class="cssCustomerID">{{Customer.CustomerID}}</div>
-                <img src='icnOffice.png' title="This is a tooltip for the company: {{Customer.CompanyName}}" class="cssCustomerIcon" />
+                <img src='tree.png' title="This is a tooltip for the company: {{Customer.CompanyName}}" class="cssCustomerIcon" />
             </div>
         </div>
         <div id="divCodeView">
 	  <form>
-	      <textarea id="code" name="code"></textarea>
+	    <textarea id="demotext">
+	      <!-- Create a simple CodeMirror instance -->
+	      <link rel="stylesheet" href="codemirror.css">
+	      <script src="codemirror.js"></script>
+	      <script>
+		var editor = CodeMirror.fromTextArea(myTextarea, {
+		lineNumbers: true
+		});
+	    </script></textarea>
 	  </form>
 	  <script>
-	    
-	  var myCodeMirror = CodeMirror(document.getElementById("code"), {
-	  value: "function myScript(){return 100;}\n",
-	  mode:  "javascript",
-	  lineNumbers: true,
-	  styleActiveLine: true,
-	  matchBrackets: true
-	  });
+	  
+	  /* TODO: resize with window resize*/
+	  $("#divMasterDetailWrapper").height($(window).height()-140);
+	  $("#demotext").height($(window).height()-140);
+	  $("#demotext").width($(window).width()/3);
+
 	  	  </script>
         </div>
 		

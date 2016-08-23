@@ -44,8 +44,8 @@ treeJSON = d3.json("flare.json", function(error, treeData) {
     var root;
 
     // size of the diagram
-    var viewerWidth = $(document).width();
-    var viewerHeight = $(document).height();
+    var viewerWidth = $("#divTreeView").width();
+    var viewerHeight = $("#divTreeView").height();
 
     var tree = d3.layout.tree()
         .size([viewerHeight, viewerWidth]);
