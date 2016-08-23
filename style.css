@@ -10,8 +10,8 @@
 }
 #divMasterView
 {
-    width: 300px;
-    height: 300px;
+    width: 200px;
+    height: 100%;
     background-color: #E0E0E0;
     margin-right: 5px;
     overflow-y: auto;
@@ -19,13 +19,23 @@
 }
 #divCodeView
 {
-    width: 300px;
-    height: 300px;
+    width: 40%;
+    height: 100%;
     background-color: #E0E0E0;
     margin-right: 5px;
     overflow-y: auto;
     float: left;
 }
+#divTreeView
+{
+    width: 40%;
+    height: 100%;
+    background-color: #E0E0E0;
+    margin-right: 5px;
+    overflow-y: auto;
+    float: left;
+}
+
 #divDetailView
 {
     height: 300px;
