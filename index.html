@@ -6,10 +6,13 @@
     <link rel="stylesheet" type="text/css" href="style.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 
+<link rel="stylesheet" href="codemirror.css">
+
     <title>Attack Trees</title>
     <script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
 
-    <script src="codemirror.js"></script>
+    <!-- Create a simple CodeMirror instance -->
+     <script src="codemirror.js"></script>
     <link rel="stylesheet" href="codemirror.css">
     <link rel="stylesheet" href="tree.css">
     <link href="navbar-fixed-top.css" rel="stylesheet">
@@ -70,24 +73,32 @@
             </div>
         </div>
         <div id="divCodeView">
-	  <form>
-	    <textarea id="demotext">
-	      <!-- Create a simple CodeMirror instance -->
-	      <link rel="stylesheet" href="codemirror.css">
-	      <script src="codemirror.js"></script>
-	      <script>
-		var editor = CodeMirror.fromTextArea(myTextarea, {
-		lineNumbers: true
-		});
-	    </script></textarea>
-	  </form>
+
+	  <form><textarea id="code" name="code">
+var editor = CodeMirror.fromTextArea(document.getElementById("code"), {
+  lineNumbers: true,
+  gutters: ["CodeMirror-linenumbers", "breakpoints"]
+});
+editor.on("gutterClick", function(cm, n) {
+  var info = cm.lineInfo(n);
+  cm.setGutterMarker(n, "breakpoints", info.gutterMarkers ? null : makeMarker());
+});
+
+function makeMarker() {
+  var marker = document.createElement("div");
+  marker.style.color = "#822";
+  marker.innerHTML = "●";
+  return marker;
+}
+</textarea></form>
 	  <script>
 	  
 	  /* TODO: resize with window resize*/
 	  $("#divMasterDetailWrapper").height($(window).height()-140);
-	  $("#demotext").height($(window).height()-140);
+	  $("#demotext").height($(window).height());
 	  $("#demotext").width($(window).width()/3);
 
+    eval(document.getElementById("code").value);
 	  	  </script>
         </div>
 		
