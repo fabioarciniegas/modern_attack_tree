@@ -1,44 +1,52 @@
-<div id="divMasterDetailWrapper" ng-controller='MasterDetailCtrl' style="position:relative;">
-  <!-- TODO: add read items -->
-  <!-- First we have our left-hand code. TODO: make this into a codemirror editor -->
-  <div id="divMasterView">
-    
-        <div id="{{customer.customerid}}" class="cssOneCompanyRecord" ng-class="{cssCompanySelectedRecord: Customer.CustomerID == selectedCustomer}" ng-repeat='Customer in listOfCustomers' ng-click="selectCustomer(Customer);">
-            <div class="cssCompanyName">{{Customer.CompanyName}}</div>
-            <div class="cssCompanyCity">{{Customer.City}}</div>
-            <div class="cssCustomerID">{{Customer.CustomerID}}</div>
-            <img src='/images/icnOffice.png' title="This is a tooltip for the company: {{Customer.CompanyName}}" class="cssCustomerIcon" />
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" ng-app="attackTree">
+  <!-- note that the value of ng-app is irrelevant. It's a marker attribute
+       establishing the owner of the angular app. -->
+  <head>
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <title>Attack Trees</title>
+    <script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
+
+    <!-- TODO: port to 2.0 -->
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.26/angular.min.js"></script>
+    <script src="attacktree.js" type="text/javascript"></script>
+  </head>
+  <body>
+    <h1>Attack Tree Editor</h1>
+    <div id="divMasterDetailWrapper" ng-controller='AttackTreeCtrl' style="position:relative;">
+              <div style="left:-30px;top:-1px;position:absolute;">
+            <img src="tabAngularJS.png" />
         </div>
-    </div>
-
-    <!-- TODO: make this into an agular JS -->
-    <!-- Then, we have our right-hand panel, showing one Customer's orders --> 
-    <div id="divDetailView">
-        <!-- Get AngularJS to create one DIV for each Order that this Customer has made. --> 
-        <div id="Order_{{Order.OrderID}}" ng-repeat="Order in listOfOrders" class="cssOneOrderRecord">
-            <!-- Each Order will have a header bar, with Order ID and date. --> 
-            <div class="cssOneOrderHeader">
-                <div class="cssOrderID">Order # {{Order.OrderID}}</div>
-                <div class="cssOrderDate">Order Date: {{Order.OrderDate}}</div>
-            </div>
-
-            <!-- AngularJS will create one DIV for each Product in this particular Order --> 
-            <div class="cssOneProductRecord" ng-repeat='Product in Order.ProductsInBasket' ng-class="{ cssProductEven: (($index%2) == 0), cssProductOdd: ($index%2)}">
-                <div class="cssOneProductQty">{{Product.Quantity}}</div>
-                <div class="cssOneProductName">{{Product.ProductName}}</div>
-                <div class="cssOneProductPrice">@ {{Product.UnitPrice | currency}}</div>
-                <div class="cssOneProductSubtotal">{{Product.UnitPrice * Product.Quantity | currency}}</div>
-            </div>
-
-            <!-- The fiddly bit - calculating totals for this Order --> 
-            <div class="cssOneOrderTotal">
-                <div class="cssOneProductQty">
-                    {{Order.ProductsInBasket|countItemsInOrder}} item(s), {{Order.ProductsInBasket.length}} product(s)
-                </div>
-                <div class="cssOneProductSubtotal"> 
-                    {{Order.ProductsInBasket|orderTotal | currency}}
-                </div>
+        <div id="divMasterView">
+            <div id="{{customer.customerid}}" class="cssOneCompanyRecord" ng-class="{cssCompanySelectedRecord: Customer.CustomerID == selectedCustomer}" ng-repeat='Customer in listOfCustomers' ng-click="selectCustomer(Customer);">
+                <div class="cssCompanyName">{{Customer.CompanyName}}</div>
+                <div class="cssCompanyCity">{{Customer.City}}</div>
+                <div class="cssCustomerID">{{Customer.CustomerID}}</div>
+                <img src='icnOffice.png' title="This is a tooltip for the company: {{Customer.CompanyName}}" class="cssCustomerIcon" />
             </div>
         </div>
-    </div>
-</div>
+        <div id="divDetailView">
+            <!--  .$select('Order, sum(Quantity) as OrderTotal')-->
+            <div id="Order_{{Order.OrderID}}" ng-repeat="Order in listOfOrders" class="cssOneOrderRecord">
+                <div class="cssOneOrderHeader">
+                    <div class="cssOrderID">Order # {{Order.OrderID}}</div>
+                    <div class="cssOrderDate">Order Date: {{Order.OrderDate}}</div>
+                </div>
+                <div class="cssOneProductRecord" ng-repeat='Product in Order.ProductsInBasket | filter:ProductsInOrder' ng-class-odd="'cssProductOdd'" ng-class-even="'cssProductEven'">
+                    <div class="cssOneProductQty">{{Product.Quantity}}</div>
+                    <div class="cssOneProductName">{{Product.ProductName}}</div>
+                    <div class="cssOneProductPrice">@ {{Product.UnitPrice | currency}}</div>
+                    <div class="cssOneProductSubtotal">{{Product.UnitPrice * Product.Quantity | currency}}</div>
+                </div>
+                <div class="cssOneOrderTotal">
+                    <div class="cssOneProductQty">
+                        {{Order.ProductsInBasket|countItemsInOrder}} item(s), {{Order.ProductsInBasket.length}} product(s)
+                    </div>
+                    <div class="cssOneProductSubtotal">
+                        {{Order.ProductsInBasket|orderTotal | currency}}
+                    </div>
+                </div>
+            </div>
+        </div>
+  <body>
+    </html>
