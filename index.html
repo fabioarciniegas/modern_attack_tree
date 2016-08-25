@@ -1,12 +1,13 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" ng-app="attackTree">
-  <!-- note that the value of ng-app is irrelevant. It's a marker attribute
-       establishing the owner of the angular app. -->
-  <head>
+<!-- note that the value of ng-app is irrelevant. It's a marker attribute
+     establishing the owner of the angular app. -->
+<head>
     <link rel="stylesheet" type="text/css" href="style.css">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+          integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 
-<link rel="stylesheet" href="codemirror.css">
+    <link rel="stylesheet" href="codemirror.css">
 
     <title>Attack Trees</title>
     <script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
@@ -24,84 +25,92 @@
     <script src="http://d3js.org/d3.v3.min.js"></script>
 
 
-  </head>
-  <body>
+</head>
+<body>
 
 <!-- Fixed navbar -->
-    <nav class="navbar navbar-default navbar-fixed-top">
-      <div class="container">
+<nav class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
         <div class="navbar-header">
-          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-	  <!-- TODO: fine tune color of fonts -->
-          <a class="navbar-brand" href="#"><img style="margin-top:-10px" src="tree.png"/><span style="color:#000000">ATTACK</span><span style="color:#30c533">TREES</span> modern visualization of security issues</a>
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar"
+                    aria-expanded="false" aria-controls="navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <!-- TODO: fine tune color of fonts -->
+            <a class="navbar-brand" href="#"><img style="margin-top:-10px" src="tree.png"/><span style="color:#000000">ATTACK</span><span
+                    style="color:#30c533">TREES</span> modern visualization of security issues</a>
         </div>
         <div id="navbar" class="navbar-collapse collapse">
-          <ul class="nav navbar-nav navbar-right">
+            <ul class="nav navbar-nav navbar-right">
 
-            <li class="dropdown">
-		<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><img src="share.png" alt="Share"/><span class="caret"></span></a>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+                       aria-expanded="false"><img src="share.png" alt="Share"/><span class="caret"></span></a>
 
-              <ul class="dropdown-menu">
-                <li><a href="#">Share Link</a></li>
-                <li><a href="#">Facebook</a></li>
-                <li><a href="#">Something else here</a></li>
-                <li role="separator" class="divider"></li>
-                <li class="dropdown-header">Nav header</li>
-                <li><a href="#">Separated link</a></li>
-                <li><a href="#">One more separated link</a></li>
-              </ul>
-            </li>
+                    <ul class="dropdown-menu">
+                        <li><a href="#">Share Link</a></li>
+                        <li><a href="#">Facebook</a></li>
+                        <li><a href="#">Something else here</a></li>
+                        <li role="separator" class="divider"></li>
+                        <li class="dropdown-header">Nav header</li>
+                        <li><a href="#">Separated link</a></li>
+                        <li><a href="#">One more separated link</a></li>
+                    </ul>
+                </li>
 
-            <li class="dropdown">
-		<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">View<span class="caret"></span></a>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+                       aria-expanded="false">View<span class="caret"></span></a>
 
-              <ul class="dropdown-menu">
-                <li><a href="#">Source</a></li>
-                <li><a href="#">Library</a></li>
-                <li role="separator" class="divider"></li>
-                <li class="dropdown-header">Nav header</li>
-                <li><a href="#"></a></li>
-                <li><a href="#">One more separated link</a></li>
-              </ul>
-            </li>
+                    <ul class="dropdown-menu">
+                        <li><a href="#">Source</a></li>
+                        <li><a href="#">Library</a></li>
+                        <li role="separator" class="divider"></li>
+                        <li class="dropdown-header">Nav header</li>
+                        <li><a href="#"></a></li>
+                        <li><a href="#">One more separated link</a></li>
+                    </ul>
+                </li>
 
-            <li class="dropdown">
-		<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">File<span class="caret"></span></a>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+                       aria-expanded="false">File<span class="caret"></span></a>
 
-              <ul class="dropdown-menu">
-                <li><a href="#">Source</a></li>
-                <li><a href="#">Library</a></li>
-                <li role="separator" class="divider"></li>
-                <li class="dropdown-header">Nav header</li>
-                <li><a href="#"></a></li>
-                <li><a href="#">One more separated link</a></li>
-              </ul>
-            </li>
-	  </ul>
+                    <ul class="dropdown-menu">
+                        <li><a href="#">Source</a></li>
+                        <li><a href="#">Library</a></li>
+                        <li role="separator" class="divider"></li>
+                        <li class="dropdown-header">Nav header</li>
+                        <li><a href="#"></a></li>
+                        <li><a href="#">One more separated link</a></li>
+                    </ul>
+                </li>
+            </ul>
         </div><!--/.nav-collapse -->
-      </div>
-    </nav>
-    
+    </div>
+</nav>
 
-      <div id="divColumnsWrapper" ng-controller='AttackTreeCtrl' style="position:relative;" >
-              <div style="left:-30px;top:-1px;position:absolute;">
-              </div>
-        <div id="divLibraryView">
-            <div id="{{customer.customerid}}" class="cssOneCompanyRecord" ng-class="{cssCompanySelectedRecord: Customer.CustomerID == selectedCustomer}" ng-repeat='Customer in listOfCustomers' ng-click="selectCustomer(Customer);">
-                <div class="cssCompanyName">{{Customer.CompanyName}}</div>
-                <div class="cssCompanyCity">{{Customer.City}}</div>
-                <div class="cssCustomerID">{{Customer.CustomerID}}</div>
-                <img src='tree.png' title="This is a tooltip for the company: {{Customer.CompanyName}}" class="cssCustomerIcon" />
-            </div>
+
+<div id="divColumnsWrapper" ng-controller='AttackTreeCtrl' style="position:relative;">
+    <div style="left:-30px;top:-1px;position:absolute;">
+    </div>
+    <div id="divLibraryView">
+        <div id="{{customer.customerid}}" class="cssOneCompanyRecord"
+             ng-class="{cssCompanySelectedRecord: Customer.CustomerID == selectedCustomer}"
+             ng-repeat='Customer in listOfCustomers' ng-click="selectCustomer(Customer);">
+            <div class="cssCompanyName">{{Customer.CompanyName}}</div>
+            <div class="cssCompanyCity">{{Customer.City}}</div>
+            <div class="cssCustomerID">{{Customer.CustomerID}}</div>
+            <img src='tree.png' title="This is a tooltip for the company: {{Customer.CompanyName}}"
+                 class="cssCustomerIcon"/>
         </div>
-        <div id="divCodeView">
+    </div>
+    <div id="divCodeView">
 
-	  <form><textarea id="code" name="code">
+        <form><textarea id="code" name="code">
 var editor = CodeMirror.fromTextArea(document.getElementById("code"), {
   lineNumbers: true,
   gutters: ["CodeMirror-linenumbers", "breakpoints"]
@@ -118,132 +127,126 @@ function makeMarker() {
   return marker;
 }
 </textarea></form>
+    </div>
+
+    <div id="divTreeView">
+        <div id="tree-container">
         </div>
-		
+    </div>
 
-	<div id="divTreeView">
-	  <div id="tree-container">
-	  </div>
-	</div>
-	
-      </div>
+</div>
 
-      	  <script>
-              eval(document.getElementById("code").value);
+<script>
+    eval(document.getElementById("code").value);
 
-              /* TODO: resize dynamically with window resize*/
-              $("#divColumnsWrapper").height($(window).height() - 140);
-              $("#demotext").height($(window).height());
-              $("#demotext").width($(window).width() / 3);
+    /* TODO: resize dynamically with window resize*/
+    $("#divColumnsWrapper").height($(window).height() - 140);
+    $("#demotext").height($(window).height());
+    $("#demotext").width($(window).width() / 3);
 
 
-              toggleCollapse = true;
+    toggleCollapse = true;
 
-              // size of the diagram
-              var viewerWidth = $("#divTreeView").width();
-              var viewerHeight = $("#divTreeView").height();
+    // size of the diagram
+    var viewerWidth = $("#divTreeView").width();
+    var viewerHeight = $("#divTreeView").height();
 
-              var tree = d3.layout.tree()
-                      .size([viewerHeight, viewerWidth]);
+    var tree = d3.layout.tree()
+            .size([viewerHeight, viewerWidth]);
 
-              var root = {};
-              var nodes = tree(root);
+    var root = {};
+    var nodes = tree(root);
 
-              root.parent = root;
-              root.px = root.x;
-              root.py = root.y;
+    root.parent = root;
+    root.px = root.x;
+    root.py = root.y;
 
-              var diagonal = d3.svg.diagonal();
+    var diagonal = d3.svg.diagonal();
 
-              var svg = d3.select("#tree-container").append("svg")
-                      .attr("width", viewerWidth)
-                      .attr("height", viewerHeight)
-                      .attr("class", "overlay")
-                      .append("g")
-                      .attr("transform", "translate(10,10)");
+    var svg = d3.select("#tree-container").append("svg")
+            .attr("width", viewerWidth)
+            .attr("height", viewerHeight)
+            .attr("class", "overlay")
+            .append("g")
+            .attr("transform", "translate(10,10)");
 
-              var node = svg.selectAll(".node"),
-                      link = svg.selectAll(".link");
+    var node = svg.selectAll(".node"),
+            link = svg.selectAll(".link");
 
-              var duration = 750;
-              //	    timer = setInterval(update, duration);
+    var duration = 750;
+    //	    timer = setInterval(update, duration);
 
+    /* update */
+    function update() {
+        /* based on http://bl.ocks.org/mbostock/999346 */
+        var g = d3.select("#tree-container>svg>g");
+        if (toggleCollapse = !toggleCollapse)
+            $("#tree-container>svg").css('background', '');
+        else
+            $("#tree-container>svg").css('background', 'white');
 
-              /* update */
-              function update() {
-                  /* based on http://bl.ocks.org/mbostock/999346 */
-                  var g = d3.select("#tree-container>svg>g");
-                  if (toggleCollapse = !toggleCollapse)
-                      $("#tree-container>svg").css('background', '');
-                  else
-                      $("#tree-container>svg").css('background', 'white');
+        /** Group containing the nodes and links **/
+        svg = d3.select("#tree-container>svg>g");
 
-
-                  /** Group containing the nodes and links **/
-                  svg = d3.select("#tree-container>svg>g");
-
-                  var node = svg.selectAll(".node"),
-                          link = svg.selectAll(".link");
+        var node = svg.selectAll(".node"),
+                link = svg.selectAll(".link");
 
 
-                  var n = {id: nodes.length},
-                          p = nodes[Math.random() * nodes.length | 0];
-                  if (p.children) p.children.push(n); else p.children = [n];
-                  nodes.push(n);
+        var n = {id: nodes.length},
+                p = nodes[Math.random() * nodes.length | 0];
+        if (p.children) p.children.push(n); else p.children = [n];
+        nodes.push(n);
 
-                  // Recompute the layout and data join.
-                  node = node.data(tree.nodes(root), function (d) {
-                      return d.id;
-                  });
-                  link = link.data(tree.links(nodes), function (d) {
-                      return d.source.id + "-" + d.target.id;
-                  });
-
-
-                  // Add entering nodes in the parent’s old position.
-                  node.enter().append("circle")
-                          .attr("class", "node")
-                          .attr("r", 4)
-                          .attr("cx", function (d) {
-                              return d.parent.px;
-                          })
-                          .attr("cy", function (d) {
-                              return d.parent.py;
-                          });
-
-                  // Add entering links in the parent’s old position.
-                  link.enter().insert("path", ".node")
-                          .attr("class", "link")
-                          .attr("d", function (d) {
-                              var o = {x: d.source.px, y: d.source.py};
-                              return diagonal({source: o, target: o});
-                          });
-
-                  // Transition nodes and links to their new positions.
-                  var t = svg.transition()
-                          .duration(10);
-
-                  t.selectAll(".link")
-                          .attr("d", diagonal);
-
-                  t.selectAll(".node")
-                          .attr("cx", function (d) {
-                              return d.px = d.x;
-                          })
-                          .attr("cy", function (d) {
-                              return d.py = d.y;
-                          });
-
-              }
-              /* ON CHANGE */
+        // Recompute the layout and data join.
+        node = node.data(tree.nodes(root), function (d) {
+            return d.id;
+        });
+        link = link.data(tree.links(nodes), function (d) {
+            return d.source.id + "-" + d.target.id;
+        });
 
 
-              editor.on("change", function (cm) {
+        // Add entering nodes in the parent’s old position.
+        node.enter().append("circle")
+                .attr("class", "node")
+                .attr("r", 4)
+                .attr("cx", function (d) {
+                    return d.parent.px;
+                })
+                .attr("cy", function (d) {
+                    return d.parent.py;
+                });
 
-                          update();
-                      }
-              );
-	  	  </script>
+        // Add entering links in the parent’s old position.
+        link.enter().insert("path", ".node")
+                .attr("class", "link")
+                .attr("d", function (d) {
+                    var o = {x: d.source.px, y: d.source.py};
+                    return diagonal({source: o, target: o});
+                });
 
-  <body>
-    </html>
+        // Transition nodes and links to their new positions.
+        var t = svg.transition()
+                .duration(10);
+
+        t.selectAll(".link")
+                .attr("d", diagonal);
+
+        t.selectAll(".node")
+                .attr("cx", function (d) {
+                    return d.px = d.x;
+                })
+                .attr("cy", function (d) {
+                    return d.py = d.y;
+                });
+
+    }
+    /* ON CHANGE */
+    editor.on("change", function (cm) {
+                update();
+            }
+    );
+</script>
+
+<body>
+</html>
