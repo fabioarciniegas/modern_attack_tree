@@ -1,4 +1,4 @@
-#divMasterDetailWrapper
+#divColumnsWrapper
 {
     width: 100%;
     height: 80px;
@@ -8,7 +8,7 @@
     font-family: Arial;
     font-size: 12px;
 }
-#divMasterView
+#divLibraryView
 {
     width: 32%;
     height: 100%;

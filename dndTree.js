@@ -27,7 +27,7 @@ EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.*/
 
 
 // Get JSON data
-treeJSON = d3.json("flare.json", function(error, treeData) {
+treeJSON = d3.json("flare2.json", function(error, treeData) {
 
     // Calculate total nodes, max label length
     var totalNodes = 0;
@@ -539,7 +539,7 @@ treeJSON = d3.json("flare.json", function(error, treeData) {
     // Append a group which holds all nodes and which the zoom Listener can act upon.
     var svgGroup = baseSvg.append("g");
 
-    // Define the root
+    // Define the roots
     root = treeData;
     root.x0 = viewerHeight / 2;
     root.y0 = 0;

@@ -10,9 +10,8 @@
 
     <title>Attack Trees</title>
     <script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
-
-    <!-- Create a simple CodeMirror instance -->
-     <script src="codemirror.js"></script>
+    <!-- TODO: get from cdn -->
+    <script src="codemirror.js"></script>
     <link rel="stylesheet" href="codemirror.css">
     <link rel="stylesheet" href="tree.css">
     <link href="navbar-fixed-top.css" rel="stylesheet">
@@ -89,10 +88,10 @@
     </nav>
     
 
-      <div id="divMasterDetailWrapper" ng-controller='AttackTreeCtrl' style="position:relative;" >
+      <div id="divColumnsWrapper" ng-controller='AttackTreeCtrl' style="position:relative;" >
               <div style="left:-30px;top:-1px;position:absolute;">
               </div>
-        <div id="divMasterView">
+        <div id="divLibraryView">
             <div id="{{customer.customerid}}" class="cssOneCompanyRecord" ng-class="{cssCompanySelectedRecord: Customer.CustomerID == selectedCustomer}" ng-repeat='Customer in listOfCustomers' ng-click="selectCustomer(Customer);">
                 <div class="cssCompanyName">{{Customer.CompanyName}}</div>
                 <div class="cssCompanyCity">{{Customer.City}}</div>
@@ -130,114 +129,120 @@ function makeMarker() {
       </div>
 
       	  <script>
-	    eval(document.getElementById("code").value);
+              eval(document.getElementById("code").value);
+
+              /* TODO: resize dynamically with window resize*/
+              $("#divColumnsWrapper").height($(window).height() - 140);
+              $("#demotext").height($(window).height());
+              $("#demotext").width($(window).width() / 3);
 
 
-	    
-	  /* TODO: resize with window resize*/
-	  $("#divMasterDetailWrapper").height($(window).height()-140);
-	  $("#demotext").height($(window).height());
-	  $("#demotext").width($(window).width()/3);
+              toggleCollapse = true;
+
+              // size of the diagram
+              var viewerWidth = $("#divTreeView").width();
+              var viewerHeight = $("#divTreeView").height();
+
+              var tree = d3.layout.tree()
+                      .size([viewerHeight, viewerWidth]);
+
+              var root = {};
+              var nodes = tree(root);
+
+              root.parent = root;
+              root.px = root.x;
+              root.py = root.y;
+
+              var diagonal = d3.svg.diagonal();
+
+              var svg = d3.select("#tree-container").append("svg")
+                      .attr("width", viewerWidth)
+                      .attr("height", viewerHeight)
+                      .attr("class", "overlay")
+                      .append("g")
+                      .attr("transform", "translate(10,10)");
+
+              var node = svg.selectAll(".node"),
+                      link = svg.selectAll(".link");
+
+              var duration = 750;
+              //	    timer = setInterval(update, duration);
 
 
-
-	  
-	  toggleCollapse = true;
-
-	  // size of the diagram
-	  var viewerWidth = $("#divTreeView").width();
-	    var viewerHeight = $("#divTreeView").height();
-
-	    var tree = d3.layout.tree()
-	  .size([viewerHeight, viewerWidth]);
-
-	    var root = {};
-	    var nodes = tree(root);
-
-	    root.parent = root;
-	    root.px = root.x;
-	    root.py = root.y;
-	    
-	  var diagonal = d3.svg.diagonal();
-
-	  var svg = d3.select("#tree-container").append("svg")
-	  .attr("width", viewerWidth)
-	  .attr("height", viewerHeight)
-          .attr("class", "overlay")
-	  .append("g")
-	  .attr("transform", "translate(10,10)");
-
-	    var node = svg.selectAll(".node"),
-	    link = svg.selectAll(".link");
-
-	    var duration = 750;
-//	    timer = setInterval(update, duration);
+              /* update */
+              function update() {
+                  /* based on http://bl.ocks.org/mbostock/999346 */
+                  var g = d3.select("#tree-container>svg>g");
+                  if (toggleCollapse = !toggleCollapse)
+                      $("#tree-container>svg").css('background', '');
+                  else
+                      $("#tree-container>svg").css('background', 'white');
 
 
-/* update */	  
-	    function update(){
-	    /* based on http://bl.ocks.org/mbostock/999346 */
-   	      var g = d3.select("#tree-container>svg>g");
-	  if(toggleCollapse = !toggleCollapse)
-	         $("#tree-container>svg").css('background', '');
-              else 
-	         $("#tree-container>svg").css('background', 'white');
+                  /** Group containing the nodes and links **/
+                  svg = d3.select("#tree-container>svg>g");
+
+                  var node = svg.selectAll(".node"),
+                          link = svg.selectAll(".link");
 
 
-	    
-	  /** Group containing the nodes and links **/
-	  svg = d3.select("#tree-container>svg>g");
+                  var n = {id: nodes.length},
+                          p = nodes[Math.random() * nodes.length | 0];
+                  if (p.children) p.children.push(n); else p.children = [n];
+                  nodes.push(n);
 
-	  var node = svg.selectAll(".node"),
-	      link = svg.selectAll(".link");
-
-	  
-	  var n = {id: nodes.length},
-	  p = nodes[Math.random() * nodes.length | 0];
-	  if (p.children) p.children.push(n); else p.children = [n];
-	  nodes.push(n);
-
-	  // Recompute the layout and data join.
-	  node = node.data(tree.nodes(root), function(d) { return d.id; });
-	  link = link.data(tree.links(nodes), function(d) { return d.source.id + "-" + d.target.id; });
+                  // Recompute the layout and data join.
+                  node = node.data(tree.nodes(root), function (d) {
+                      return d.id;
+                  });
+                  link = link.data(tree.links(nodes), function (d) {
+                      return d.source.id + "-" + d.target.id;
+                  });
 
 
-	  // Add entering nodes in the parent’s old position.
-	  node.enter().append("circle")
-	  .attr("class", "node")
-	  .attr("r", 4)
-	  .attr("cx", function(d) { return d.parent.px; })
-	  .attr("cy", function(d) { return d.parent.py; });
+                  // Add entering nodes in the parent’s old position.
+                  node.enter().append("circle")
+                          .attr("class", "node")
+                          .attr("r", 4)
+                          .attr("cx", function (d) {
+                              return d.parent.px;
+                          })
+                          .attr("cy", function (d) {
+                              return d.parent.py;
+                          });
 
-	  // Add entering links in the parent’s old position.
-  link.enter().insert("path", ".node")
-      .attr("class", "link")
-      .attr("d", function(d) {
-        var o = {x: d.source.px, y: d.source.py};
-        return diagonal({source: o, target: o});
-      });
+                  // Add entering links in the parent’s old position.
+                  link.enter().insert("path", ".node")
+                          .attr("class", "link")
+                          .attr("d", function (d) {
+                              var o = {x: d.source.px, y: d.source.py};
+                              return diagonal({source: o, target: o});
+                          });
 
-  // Transition nodes and links to their new positions.
-  var t = svg.transition()
-      .duration(10);
+                  // Transition nodes and links to their new positions.
+                  var t = svg.transition()
+                          .duration(10);
 
-  t.selectAll(".link")
-      .attr("d", diagonal);
+                  t.selectAll(".link")
+                          .attr("d", diagonal);
 
-  t.selectAll(".node")
-      .attr("cx", function(d) { return d.px = d.x; })
-	  .attr("cy", function(d) { return d.py = d.y; });
-	  
-}
-/* ON CHANGE */
+                  t.selectAll(".node")
+                          .attr("cx", function (d) {
+                              return d.px = d.x;
+                          })
+                          .attr("cy", function (d) {
+                              return d.py = d.y;
+                          });
+
+              }
+              /* ON CHANGE */
 
 
-	    
-	    editor.on("change", function(cm) {
+              editor.on("change", function (cm) {
 
-	    update();}
-
-);
+                          update();
+                      }
+              );
 	  	  </script>
 
   <body>
