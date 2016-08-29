@@ -44,13 +44,14 @@ function update() {
     nodeEnter.append("circle")
                 .attr("class", "node")
                 .attr("r", 4)
-                .attr("cx", function (d) {
-                    return d.parent.px;
+        .attr("cx", function (d) {
+	    // parent is a apparently a propertiy updated by the
+	    // layout routine
+                    return d.x;
                 })
                 .attr("cy", function (d) {
-                    return d.parent.py;
+                    return d.y;
                 });
-
 
     nodeEnter.append("text")
         .attr("class", "text")
@@ -66,42 +67,40 @@ function update() {
         });
 
 
-        // Add entering links in the parent’s old position.
-/*        link.enter().insert("path", ".node")
-                .attr("class", "link")
-                .attr("d", function (d) {
-                    var o = {x: d.source.px, y: d.source.py};
-                    return diagonal({source: o, target: o});
-                });
-*/
+    // Add entering links in the parent’s old position.
+    link.enter().insert("path", ".node")
+        .attr("class", "link")
+        .attr("d", function (d) {
+            var o = {x: d.source.px, y: d.source.py};
+            return diagonal({source: o, target: o});
+        });
+
     // Not quite sure what happens to removed nodes
 
-        // Transition nodes and links to their new positions.
-        var t = svg.transition()
-                .duration(10);
+    // Transition nodes and links to their new positions.
 
-    /*
-        t.selectAll(".link")
-                .attr("d", diagonal);
-*/
-        t.selectAll(".node")
-                .attr("cx", function (d) {
-                    return d.px = d.x;
-                })
-                .attr("cy", function (d) {
-                    return d.py = d.y;
-                });
-
-        t.selectAll(".text")
-                .attr("x", function (d) {
-                    return d.x;
-                })
-                .attr("y", function (d) {
-                    return d.y;
-                });
+    var t = svg.transition()
+        .duration(10);
 
 
+    t.selectAll(".link")
+        .attr("d", diagonal);
 
+    t.selectAll(".node")
+        .attr("cx", function (d) {
+            return d.px = d.x;
+        })
+        .attr("cy", function (d) {
+            return d.py = d.y;
+        });
+
+    t.selectAll(".text")
+        .attr("x", function (d) {
+            return d.px;
+        })
+        .attr("y", function (d) {
+            return d.py;
+        });
 }
 
 
