@@ -167,7 +167,7 @@ function makeMarker() {
     root.px = root.x;
     root.py = root.y;
 
-    var diagonal = d3.svg.diagonal();
+    var diagonal = d3.svg.diagonal().projection(function(d) { return [d.y, d.x]; });;
 
     var svg = d3.select("#tree-container").append("svg")
             .attr("width", viewerWidth)

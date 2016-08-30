@@ -15,8 +15,22 @@ function update() {
     var node = svg.selectAll(".node"),
         link = svg.selectAll(".link");
 
+    var disqus_url="http://pastehtml.com/view/1c0gckz.html";
+    var disqus_shortname = 'pastehtmlpastehtml';
+    
+    var random_text =
+	[
+	    "This is a macabre grave",
+	    "This is a soapless treatment",
+	    "This is a flimsy budget",
+	    "This is a moldy tombstone",
+	    "This is a frightening troll",
+	    "This is a rotten graveyard",
+	    "This is a possessed tomb"
+	];
+
 	/ * create a node, assign it at random to a parent */
-    var n = {id: nodes.length, "name": ""+ nodes.length},
+    var n = {id: nodes.length, "name": random_text[Math.floor((Math.random() * random_text.length))] },
             p = nodes[Math.random() * nodes.length | 0];
 	
     if (p.children) p.children.push(n); else p.children = [n];
@@ -43,7 +57,7 @@ function update() {
         .attr("class", "link")
         .attr("d", function (d) {
 	    // d.source automagicallly provided after data
-            var o = {x: d.source.px, y: d.source.py};
+            var o = {x: d.source.py, y: d.source.px};
             return diagonal({source: o, target: o});
         });
 
@@ -87,10 +101,10 @@ function update() {
 
     t.selectAll(".node")
         .attr("cx", function (d) {
-            return d.px = d.x;
+            return d.px = d.y;
         })
         .attr("cy", function (d) {
-            return d.py = d.y;
+            return d.py = d.x;
         });
 
     t.selectAll(".text")
