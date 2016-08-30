@@ -66,24 +66,23 @@ function update() {
 
 
     // Add entering links in the parent’s old position.
-    /*
-    link.enter().insert("path", ".node")
+    link.enter().insert("path", "g.node")
         .attr("class", "link")
         .attr("d", function (d) {
-            var o = {x: d.px, y: d.py};
-	    var p = {x: d.x, y: d.y};
-            return diagonal({source: p, target: o});
+	    // d.source automagicallly provided after data
+            var o = {x: d.source.px, y: d.source.py};
+            return diagonal({source: o, target: o});
         });
-*/
-    // Not quite sure what happens to removed nodes
+
+    // TODO: deal with removed nodes
 
     // Transition nodes and links to their new positions.
 
     var t = svg.transition()
         .duration(750);
 
-//    t.selectAll(".link")
-//        .attr("d", diagonal);
+    t.selectAll(".link")
+        .attr("d", diagonal);
 
     t.selectAll(".node")
         .attr("cx", function (d) {
