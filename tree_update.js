@@ -38,6 +38,15 @@ function update() {
 
     var nodeEnter = node.enter().append("g");
 
+        // Add entering links in the parent’s old position.
+    link.enter().insert("path", "g.node")
+        .attr("class", "link")
+        .attr("d", function (d) {
+	    // d.source automagicallly provided after data
+            var o = {x: d.source.px, y: d.source.py};
+            return diagonal({source: o, target: o});
+        });
+
     nodeEnter.append("circle")
                 .attr("class", "node")
                 .attr("r", 4)
@@ -65,14 +74,6 @@ function update() {
         });
 
 
-    // Add entering links in the parent’s old position.
-    link.enter().insert("path", "g.node")
-        .attr("class", "link")
-        .attr("d", function (d) {
-	    // d.source automagicallly provided after data
-            var o = {x: d.source.px, y: d.source.py};
-            return diagonal({source: o, target: o});
-        });
 
     // TODO: deal with removed nodes
 

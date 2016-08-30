@@ -63,6 +63,10 @@ function ($scope, $http) {
     //  When the user selects a "Customer" from our MasterView list, we'll set the following variable.
     $scope.selectedCustomer = null;
 
+    var data2 = {AttackLibrary:[{"City":"classic physical safety example","CompanyName":"Safe Cracking Hard Access","CustomerID":"physical"},{"City":"prevalent xss attack","CompanyName":"XSS Scripting","CustomerID":"web"},{"City":"Open Safe classic example","CompanyName":"Physical access","CustomerID":"web"},{"City":"Open Safe classic example","CompanyName":"Physical access","CustomerID":"web"}]};
+
+    $scope.listOfCustomers = data2.AttackLibrary;
+    /*
     $http.get('http://inorthwind.azurewebsites.net/Service1.svc/getAllCustomers')
 
         .success(function (data) {
@@ -82,6 +86,8 @@ function ($scope, $http) {
         .error(function (data, status, headers, config) {
             $scope.errorMessage = "Couldn't load the list of customers, error # " + status;
         });
+
+*/
 
     $scope.selectCustomer = function (val) {
         //  If the user clicks on a <div>, we can get the ng-click to call this function, to set a new selected Customer.
