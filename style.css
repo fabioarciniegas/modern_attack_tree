@@ -4,7 +4,7 @@
     height: 80px;
     border: 0px solid Green;
     padding: 3px;
-    margin: 15px 5px 15px 0px;
+    margin: 0px 0px 0px 0px;
     font-family: Arial;
     font-size: 12px;
 }
@@ -15,14 +15,17 @@
     background-color: #E0E0E0;
     margin-right: 5px;
     overflow-y: auto;
+    transition: 0.5s;
     float: left;
 }
+
 #divCodeView
 {
     width: 33%;
     height: 100%;
     background-color: #E0E0E0;
     margin-right: 5px;
+    transition: 0.5s;
     overflow-y: auto;
     float: left;
 }
@@ -34,6 +37,7 @@
     background-color: #FFFFFF;
     height: 100%;
     margin-right: 5px;
+    transition: 0.5s;
     overflow-y: auto;
     float: left;
 }
