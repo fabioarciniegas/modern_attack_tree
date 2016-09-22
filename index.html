@@ -23,12 +23,13 @@
     <script src="http://d3js.org/d3.v3.min.js"></script>
     <link rel="stylesheet" type="text/css" href="slidebar.css">
     <script src="slidebar.js" type="text/javascript"></script>
+    <script src="resize.js" type="text/javascript"></script>
 </head>
-<body>
+<body onresize="resizeHandler()">
 <!-- Fixed navbar -->
 <nav class="navbar navbar-default navbar-fixed-top">
 <!-- TODO: fix margin between navbar and bottom-->
-    <div class="container">
+    <div class="container" id="top_bar">
         <div class="navbar-header">
             <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar"
                     aria-expanded="false" aria-controls="navbar">
@@ -104,7 +105,7 @@
         </div>
     </div>
     <div id="divCodeView">
-        <form><textarea id="code" name="code">
+        <form ><textarea id="code" name="code">
 var editor = CodeMirror.fromTextArea(document.getElementById("code"), {
   lineNumbers: true,
   gutters: ["CodeMirror-linenumbers", "breakpoints"]
@@ -135,19 +136,24 @@ function makeMarker() {
 </div> <!-- end of container for all main content -->
 
 <script>
+
     eval(document.getElementById("code").value);
 
     /* TODO: resize dynamically with window resize*/
     $("#divColumnsWrapper").height($(window).height() - 140);
-    $("#demotext").height($(window).height());
-    $("#demotext").width($(window).width() / 3);
+
+/*    $("#demotext").height($(window).height());
+    $("#demotext").width($(window).width() / 3);*/
 
 
     toggleCollapse = true;
 
     // size of the diagram
-    var viewerWidth = $("#divTreeView").width();
-    var viewerHeight = $("#divTreeView").height();
+//    var viewerWidth = $("#divTreeView").width();
+//    var viewerHeight = $("#divTreeView").height();
+
+   var viewerWidth = 200;
+   var viewerHeight = 300;
 
     var tree = d3.layout.tree()
             .size([viewerHeight, viewerWidth]);
@@ -174,6 +180,7 @@ function makeMarker() {
     var svg = d3.select("#tree-container").append("svg")
             .attr("width", viewerWidth)
             .attr("height", viewerHeight)
+            .attr("id", "svg_tree")
             .attr("class", "overlay")
             .append("g")
             .attr("transform", "translate(10,10)");

@@ -18,6 +18,6 @@ function openNav() {
 
 function closeNav() {
     document.getElementById("divLibraryView").style.width = "0";
-    document.getElementById("divCodeView").style.width="45%";
-    document.getElementById("divTreeView").style.width="45%";
+    document.getElementById("divCodeView").style.width="50%";
+    document.getElementById("divTreeView").style.width="50%";
 }
