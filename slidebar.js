@@ -1,11 +1,23 @@
+barsOpen = true;
+
+function toggleBar(bar) {
+    if(barsOpen)
+	closeNav();
+    else
+	openNav();
+    barsOpen = !barsOpen;
+}
+
 function openNav() {
 // TODO: calculate width as proportion of screen size
-    document.getElementById("divLibraryView").style.width = "250px";
-    document.getElementById("divCodeView").style.marginLeft = "250px";
+    document.getElementById("divLibraryView").style.width = "33%";
+    document.getElementById("divCodeView").style.width="33%";
+    document.getElementById("divTreeView").style.width="33%";
+
 }
 
 function closeNav() {
     document.getElementById("divLibraryView").style.width = "0";
     document.getElementById("divCodeView").style.width="45%";
-    document.getElementById("divTreeView").style.width="43%";
+    document.getElementById("divTreeView").style.width="45%";
 }
