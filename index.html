@@ -150,11 +150,8 @@ function makeMarker() {
     toggleCollapse = true;
 
     // size of the diagram
-//    var viewerWidth = $("#divTreeView").width();
-//    var viewerHeight = $("#divTreeView").height();
-
-   var viewerWidth = 200;
-   var viewerHeight = 300;
+    var viewerWidth = $("#divTreeView").width();
+    var viewerHeight = $("#divTreeView").height();
 
     var tree = d3.layout.tree()
             .size([viewerHeight, viewerWidth]);
@@ -169,7 +166,7 @@ function makeMarker() {
     // Runs the layout algorithm and returns the nodes
     var nodes = tree(root);
 
-    // ?? I suppose it's convention to make the root as it's own parent.
+    // ?? I suppose it's convention to make the root as it's own parent??.
     root.parent = root;
 
     // Extra value px and py for some reason. 
@@ -183,8 +180,11 @@ function makeMarker() {
             .attr("height", viewerHeight)
             .attr("id", "svg_tree")
             .attr("class", "overlay")
+            .attr("preserveAspectRatio", "xMinYMin meet")
+            .attr("viewBox", "0 0 " + viewerWidth + " " + viewerHeight)
+            .classed("svg-content-responsive", true)
             .append("g")
-            .attr("transform", "translate(10,10)");
+            .attr("transform", "translate(10,0)");
 
     var node = svg.selectAll(".node"),
             link = svg.selectAll(".link");

@@ -11,9 +11,11 @@ $("#tree-container").height(workingAreaHeight-menuBarHeight);
 $(".CodeMirror").height(workingAreaHeight-menuBarHeight);
 var viewerWidth = $("#tree-container").width();
 var viewerHeight = $("#tree-container").height();
-
-// -2 compensating for arbitrary svg viewer placement of scrollbars
-$("#svg_tree").width(viewerWidth-2);
+    // -2 compensating for arbitrary svg viewer placement of scrollbars
+    $("#svg_tree").width(viewerWidth-2);
 $("#svg_tree").height(viewerHeight-2);
 
+$("#svg_tree.g").width(viewerWidth-2);
+$("#svg_tree.g").height(viewerHeight-2);
+    update();
 }

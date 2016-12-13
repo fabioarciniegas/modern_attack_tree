@@ -6,6 +6,7 @@ function toggleBar(bar) {
     else
 	openNav();
     barsOpen = !barsOpen;
+    resizeHandler();
 }
 
 function openNav() {

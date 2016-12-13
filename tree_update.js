@@ -96,6 +96,7 @@ function update() {
     var t = svg.transition()
         .duration(750);
 
+    t.selectAll("g").attr("height",$("#tree-container").height());
     t.selectAll(".link")
         .attr("d", diagonal);
 
